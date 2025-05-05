@@ -1,13 +1,11 @@
 import React from 'react'
 import { mainStyles } from './main.style'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
 
-export default function Page({ title = 'Page Title', child }) {
+export default function Page({ title, titleTag, children, className }) {
     return (
-        <html>
+        <html lang='en'>
             <head>
-                <title>{title}</title>
+                <title>{title ? title : titleTag ? `Nullenbox - ${titleTag}` : 'Nullenbox'}</title>
                 <meta charSet="UTF-8"></meta>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
@@ -19,10 +17,8 @@ export default function Page({ title = 'Page Title', child }) {
                     rel="stylesheet" />
                 <style type="text/tailwindcss">{mainStyles}</style>
             </head>
-            <body className="bg-surface text-on-surface pt-24 font-msans text-lg">
-                <Header />
-                {child}
-                <Footer />
+            <body className={`bg-surface text-on-surface pt-24 font-msans text-lg ${className}`}>
+                {children}
             </body>
         </html>
     )

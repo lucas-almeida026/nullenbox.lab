@@ -1,0 +1,11 @@
+{
+    "verbose": true,
+    "ignore": [],
+    "watch": [
+        "src/**/*.jsx",
+        "src/**/*.js",
+        "build.jsx",
+        "package.json"
+    ],
+    "exec": "npx tsx build.jsx"
+}

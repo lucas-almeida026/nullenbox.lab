@@ -8,15 +8,15 @@ export const mainStyles = `
 }
 
 @layer utilities {
-  .font - bebas {
-    font - family: 'Bebas Neue', cursive;
+  .font-bebas {
+    font-family: 'Bebas Neue', cursive;
   }
 .font-msans {
-    font - family: 'Merriweather Sans', sans-serif;
-font-optical-sizing: auto;
+    font-family: 'Merriweather Sans', sans-serif;
+    font-optical-sizing: auto;
   }
 }
 
 a {
-    text - decoration: underline;
+    text-decoration: underline;
 }`
