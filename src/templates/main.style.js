@@ -1,6 +1,6 @@
 export const mainStyles = `
 @theme {
-  --color - primary: #7935b8;
+  --color-primary: #7935b8;
   --color-secondary: #e0732f;
   --color-contrast: #3d5940;
   --color-surface: #333;
