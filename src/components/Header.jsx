@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Header() {
+export default function Header({ basePath = './' }) {
     return (
         <header className="width-full h-24 bg-primary
         flex items-center justify-between fixed top-0 left-0 right-0 z-10 sc
@@ -18,13 +18,13 @@ export default function Header() {
                 <nav className="hidden items-center sm:flex">
                     <ul className="flex items-center gap-4">
                         <li className="font-msans text-lg">
-                            <a href="./blog.html">Blog</a>
+                            <a href={`${basePath}blog.html`}>Blog</a>
                         </li>
                         <li className="font-msans text-lg">
-                            <a href="./reading-list.html">Reading</a>
+                            <a href={`${basePath}reading-list.html`}>Reading</a>
                         </li>
                         <li className="font-msans text-lg">
-                            <a href="./projects.html">Projects</a>
+                            <a href={`${basePath}projects.html`}>Projects</a>
                         </li>
                     </ul>
                 </nav>
