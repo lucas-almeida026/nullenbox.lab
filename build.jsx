@@ -2,7 +2,7 @@ import React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import fs from 'node:fs/promises'
 
-const outputFolder = './';
+const outputFolder = './dist';
 const pages = await fs.readdir('./src/pages')
 
 for (const page of pages) {
