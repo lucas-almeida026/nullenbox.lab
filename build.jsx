@@ -1,8 +1,8 @@
-import React from 'react'
+
 import { renderToStaticMarkup } from 'react-dom/server'
 import fs from 'node:fs/promises'
 
-const outputFolder = './dist';
+const outputFolder = './';
 const pages = await fs.readdir('./src/pages')
 const blogPosts = await fs.readdir('./src/posts')
 
