@@ -1,74 +1,73 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><link rel="preload" as="image" href="../assets/nullenbox-logo.png"/><link rel="preload" as="image" href="https://www.researchgate.net/publication/350817492/figure/fig1/AS:1048198110015488@1626921312207/Systolic-array-matrix-multiplication-block.png"/><title>Nullenbox - Blog | Simulating A Systolic Array With SIMD (Kind Of)</title><meta name="description" content=""/><meta name="keywords" content="TPU, rust, matrix multiplication, systolic array, artificial intelligence"/><meta name="author" content="Nullenbox"/><meta name="theme-color" content="#222222"/><meta name="apple-mobile-web-app-capable" content="yes"/><meta name="apple-mobile-web-app-status-bar-style" content="default"/><meta name="apple-mobile-web-app-title" content="Nullenbox - Blog"/><meta name="format-detection" content="telephone=no"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><link rel="apple-touch-icon" href="../assets/favicon.ico"/><link rel="shortcut icon" type="image/x-icon" href="../assets/favicon.ico"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="true"/><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet"/><script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js" defer=""></script><script>
+<!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><link rel="preload" as="image" href="../assets/nullenbox-logo.png"/><link rel="preload" as="image" href="https://www.researchgate.net/publication/350817492/figure/fig1/AS:1048198110015488@1626921312207/Systolic-array-matrix-multiplication-block.png"/><title>Nullenbox - Blog | Simulating A Systolic Array With SIMD (Kind Of)</title><meta name="description" content=""/><meta name="keywords" content="TPU, rust, systolic array, artificial intelligence"/><meta name="author" content="Nullenbox"/><meta name="theme-color" content="#222222"/><meta name="apple-mobile-web-app-capable" content="yes"/><meta name="apple-mobile-web-app-status-bar-style" content="default"/><meta name="apple-mobile-web-app-title" content="Nullenbox - Blog"/><meta name="format-detection" content="telephone=no"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><link rel="apple-touch-icon" href="../assets/favicon.ico"/><link rel="shortcut icon" type="image/x-icon" href="../assets/favicon.ico"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="true"/><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet"/><script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js" defer=""></script><script>
                             window.addEventListener('DOMContentLoaded', function() {
                                 if (window.hljs) {
                                     window.hljs.highlightAll();
                                 }
                             });
-                        </script><style type="text/tailwindcss">
-@theme {
-  --color-primary: #7935b8;
-  --color-secondary: #e0732f;
-  --color-contrast: #3d5940;
-  --color-surface: #222;
-  --color-on-surface: #f0f0f0;
+                        </script><style type="text/tailwindcss">@theme {
+    --color-primary: #7935b8;
+    --color-secondary: #e0732f;
+    --color-contrast: #3d5940;
+    --color-surface: #222;
+    --color-on-surface: #f0f0f0;
 }
 
 @layer utilities {
     .font-bebas {
-        font-family: 'Bebas Neue', cursive;
+        font-family: "Bebas Neue", cursive;
     }
     .font-msans {
-        font-family: 'Merriweather Sans', sans-serif;
+        font-family: "Merriweather Sans", sans-serif;
         font-optical-sizing: auto;
     }
 }
 
 main h1 {
-	font-size: 2.5em;
-	font-weight: 900;
-	margin-top: 8px;
-	margin-bottom: 8px;
-	text-align: center;
-	color: var(--color-on-surface);
+    font-size: 2.5em;
+    font-weight: 900;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    text-align: center;
+    color: var(--color-on-surface);
 }
 
 main h2 {
-	font-size: 2em;
-	font-weight: 800;
-	margin-top: 32px;
-	margin-bottom: 6px;
-	color: var(--color-on-surface);
+    font-size: 2em;
+    font-weight: 800;
+    margin-top: 32px;
+    margin-bottom: 6px;
+    color: var(--color-on-surface);
 }
 
 main h3,
 main h4,
 main h5,
 main h6 {
-	font-weight: 600;
-	margin-top: 28px;
-	margin-bottom: 4px;
-	color: var(--color-on-surface);
+    font-weight: 600;
+    margin-top: 28px;
+    margin-bottom: 4px;
+    color: var(--color-on-surface);
 }
 
 main h3 {
-	font-size: 1.7em;
+    font-size: 1.7em;
 }
 
 main h4 {
-	font-size: 1.5em;
+    font-size: 1.5em;
 }
 
 main h5 {
-	font-size: 1.35em;
+    font-size: 1.35em;
 }
 
 main h6 {
-	font-size: 1.25em;
+    font-size: 1.25em;
 }
 
 main p {
-	margin: 18px 0;
-	line-height: 1.6;
+    margin: 18px 0;
+    line-height: 1.6;
 }
 
 main p,
@@ -76,12 +75,12 @@ main span,
 main li,
 main td,
 main th {
-	font-size: 1.1em;
+    font-size: 1.1em;
     color: #ddd;
 }
 
 main a {
-	font-size: 1.1em;
+    font-size: 1.1em;
     text-decoration: underline;
 }
 
@@ -96,77 +95,77 @@ main ol {
 }
 
 main li {
-	margin-left: 36px;
+    margin-left: 36px;
 }
 
 main hr {
-	margin-bottom: 24px;
-	margin-top: 12px;
+    margin-bottom: 24px;
+    margin-top: 12px;
 }
 
 main table {
-	width: 100%;
-	border-collapse: collapse;
-	margin: 20px 0;
-	font-size: 1em;
-	text-align: left;
-	background-color: var(--table-bg-color);
-	border: 1px solid var(--color-secondary);
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1em;
+    text-align: left;
+    background-color: var(--table-bg-color);
+    border: 1px solid var(--color-secondary);
 }
 
 main th,
 main td {
-	padding: 12px 15px;
-	border: 1px solid var(--color-secondary);
+    padding: 12px 15px;
+    border: 1px solid var(--color-secondary);
 }
 
 main th {
-	background-color: var(--table-bg-color);
-	color: var(--color-on-surface);
-	font-weight: bold;
+    background-color: var(--table-bg-color);
+    color: var(--color-on-surface);
+    font-weight: bold;
 }
 
 main tr:nth-child(odd) {
-	background-color: var(--table-row-alt-color);
+    background-color: var(--table-row-alt-color);
 }
 
 main tr:hover {
-	background-color: var(--table-row-hover-color);
+    background-color: var(--table-row-hover-color);
 }
 
 main code {
-	font-size: 1em !important;
-	font-family: 'Courier New', Courier, monospace;
-	padding: 2px 4px;
-	border-radius: 3px;
+    font-size: 1em !important;
+    font-family: "Courier New", Courier, monospace;
+    padding: 2px 4px;
+    border-radius: 3px;
 }
 
 main pre,
 main code {
-	tab-size: 4;
-	-moz-tab-size: 4;
-	-o-tab-size: 4;
+    tab-size: 4;
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
 }
 
 .hljs {
-	display: block;
-	overflow-x: auto;
-	padding: 0.5em;
-	background: #282a36;
-	color: #f8f8f2;
+    display: block;
+    overflow-x: auto;
+    padding: 0.5em;
+    background: #282a36;
+    color: #f8f8f2;
 }
 
 .hljs-built_in {
-	color: #b57614;
+    color: #b57614;
 }
 
 .hljs-section,
 .hljs-link {
-	color: #458588;
+    color: #458588;
 }
 
 .hljs-keyword {
-	color: #d65d0e;
+    color: #d65d0e;
 }
 
 .hljs,
@@ -175,7 +174,7 @@ main code {
 .hljs-punctuation,
 .hljs-subst,
 .hljs-variable.language_ {
-	color: #f8f8f2 !important;
+    color: #f8f8f2 !important;
 }
 
 .hljs-title,
@@ -184,8 +183,8 @@ main code {
 .hljs-meta-keyword,
 .hljs-operator,
 .hljs-name.function_ {
-	font-style: italic;
-	color: #689d6a;
+    font-style: italic;
+    color: #689d6a;
 }
 
 .hljs-string,
@@ -197,13 +196,13 @@ main code {
 .hljs-variable,
 .hljs-template-tag,
 .hljs-template-variable {
-	color: #98871a;
+    color: #98871a;
 }
 
 .hljs-comment,
 .hljs-quote,
 .hljs-deletion {
-	color: #458588;
+    color: #458588;
 }
 
 .hljs-keyword,
@@ -214,21 +213,22 @@ main code {
 .hljs-doctag,
 .hljs-type,
 .hljs-strong {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 .hljs-literal,
 .hljs-number {
-	color: #8f3f71;
+    color: #8f3f71;
 }
 
 .hljs-emphasis {
-	font-style: italic;
+    font-style: italic;
 }
 
 a {
-	text-decoration: underline;
-}</style></head><body class="bg-surface text-on-surface pt-24 font-msans text-lg undefined"><header class="width-full h-24 bg-primary
+    text-decoration: underline;
+}
+</style></head><body class="bg-surface text-on-surface pt-24 font-msans text-lg undefined"><header class="width-full h-24 bg-primary
         flex items-center justify-between fixed top-0 left-0 right-0 z-10 sc
         shadow-md"><div class="container mx-auto h-full max-w-screen-xl px-4
             flex items-center justify-center sm:justify-between"><div class="flex items-center w-min-content"><div class="w-20 h-20 flex items-center overflow-hidden"><img width="100" height="100" class="w-full" src="../assets/nullenbox-logo.png" alt=""/></div><h1 class="font-bebas text-5xl text-on-surface">Nullenbox</h1></div><nav class="hidden items-center sm:flex"><ul class="flex items-center gap-4"><li class="font-msans text-lg"><a href="../blog">Blog</a></li><li class="font-msans text-lg"><a href="../reading-list.html">Reading</a></li><li class="font-msans text-lg"><a href="../projects.html">Projects</a></li></ul></nav></div></header><main class="w-full py-6"><div class="container mx-auto h-full max-w-screen-lg px-4"><h1>Simulating A Systolic Array With SIMD (Kind Of)</h1><p>I decided to try to understand how a TPU works. Since I don&#x27;t have any hardware expertise, I decided to try to simulate a systolic array using SIMD operations. The result is not a &quot;real&quot; simulation, because I did not try to simulate the hardware itself, but the idea behind it and the dataflow (partially).</p><p>I wanted to try to make my CPU perform matrix multiplications faster using a strategy that vaguely resembled how a systolic array works.</p><h2>What is a systolic array?</h2><p>Simply put, it is a device that organizes a bunch of data processing units in a homogeneous way to perform a predefined operation. The one we will focus on is matrix multiplication, but it could do other things like correlation, convolution, or even sorting data.</p><p>A systolic array is the primary building block of a TPU (tensor processing unit), which nowadays has become much more interesting to me because of artificial intelligence. AI can ultimately be reduced to a ton of matrix multiplications, and the CPU is terrible at performing matrix multiplication.</p><p>In the case of matrix multiplication operations, each PE receives data from the &quot;top&quot; and from the &quot;left,&quot; then performs a multiplication with the two values, stores the result in an accumulator register, and passes the values forward. The values continue cascading down and to the right until the last PE (on the bottom-right edge) performs the last calculation.</p><p>Here is a diagram that demonstrates the dataflow<img src="https://www.researchgate.net/publication/350817492/figure/fig1/AS:1048198110015488@1626921312207/Systolic-array-matrix-multiplication-block.png" alt="illustration"/></p><p>For comparison, a 256x256 systolic array is capable of performing up to 65,536 operations per clock tick, whereas a CPU (assuming scalar single-core execution) can do 1 operation per clock tick. This comparison is not 100% fair, but it serves to illustrate the discrepancy in parallel operation capabilities.</p><p>Right now, when this kind of operation needs to be done, a GPU is used (hence Nvidia stocks 👀), but imagine a scenario where you are playing a game and one of the enemies in the game is controlled by a more sophisticated AI model. The GPU might already be doing a lot of work to process the graphics, the CPU is occupied serving data to the GPU, running the OS, and, as we already know, CPUs are not known to be great with matrix multiplication anyway. That is the scenario where a TPU comes in handy and is one of the primary reasons I think edge computing hardware will become more relevant in the future.</p><h2>What is SIMD</h2><p>Modern CPUs usually contain special instructions commonly called SIMD that can perform one operation with multiple values at the same time (in the same core), and it&#x27;s easier to understand them if you try to think in &quot;Assembly mode&quot;. An example using pseudo-code could look like this (I don&#x27;t know Assembly):</p><pre><code class="language-python">A = [1, 2, 3, 4, 5, 6, 7, 8]
