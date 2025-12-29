@@ -1,0 +1,46 @@
+---
+import Page from "../layouts/Page.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Page>
+  <main class="container mx-auto max-w-screen-xl px-8 py-16">
+    <section class="text-center mb-16">
+      <h1 class="text-5xl font-bold mb-6">Welcome to Nullenbox</h1>
+      <p class="text-xl text-on-surface-muted max-w-2xl mx-auto">
+        A personal space for projects, thoughts, and explorations in technology.
+      </p>
+    </section>
+
+    <section class="grid md:grid-cols-3 gap-8 mb-16">
+      <a href="/blog.html" class="card p-8 text-center group no-underline">
+        <h2
+          class="text-2xl font-semibold mb-3 group-hover:text-primary transition-colors"
+        >
+          Blog
+        </h2>
+        <p class="text-on-surface-muted">Tutorials, thoughts, and learnings</p>
+      </a>
+      <a href="/projects.html" class="card p-8 text-center group no-underline">
+        <h2
+          class="text-2xl font-semibold mb-3 group-hover:text-primary transition-colors"
+        >
+          Projects
+        </h2>
+        <p class="text-on-surface-muted">Things I've built and experiments</p>
+      </a>
+      <a
+        href="/reading-list.html"
+        class="card p-8 text-center group no-underline"
+      >
+        <h2
+          class="text-2xl font-semibold mb-3 group-hover:text-primary transition-colors"
+        >
+          Reading
+        </h2>
+        <p class="text-on-surface-muted">Books and articles I recommend</p>
+      </a>
+    </section>
+  </main>
+  <Footer />
+</Page>

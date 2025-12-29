@@ -1,0 +1,334 @@
+@import "tailwindcss";
+
+/* 
+ * Theme configuration for Nullenbox
+ * Supports both light and dark modes with CSS custom properties
+ */
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Brand colors */
+  --color-primary: #7935b8;
+  --color-primary-light: #9b5cd4;
+  --color-primary-dark: #5a2890;
+  --color-secondary: #e0732f;
+  --color-secondary-light: #f59e5e;
+  --color-secondary-dark: #c45a1a;
+  --color-contrast: #3d5940;
+  --color-contrast-light: #5a7d5e;
+  --color-contrast-dark: #2a3d2c;
+
+  /* Light mode surface colors (default) */
+  --color-surface: #f8f8fa;
+  --color-surface-elevated: #ffffff;
+  --color-surface-sunken: #eeeeef;
+  --color-on-surface: #1a1a2e;
+  --color-on-surface-muted: #64647a;
+
+  /* Light mode shadows */
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 2px 8px -2px rgba(0, 0, 0, 0.12), 0 4px 16px -4px rgba(0, 0, 0, 0.08);
+  --shadow-hover: 0 8px 24px -4px rgba(0, 0, 0, 0.15), 0 4px 8px -2px rgba(0, 0, 0, 0.08);
+}
+
+/* Dark mode overrides using CSS custom properties */
+.dark {
+  --color-surface: #16161e;
+  --color-surface-elevated: #22222c;
+  --color-surface-sunken: #0e0e14;
+  --color-on-surface: #e9e9ec;
+  --color-on-surface-muted: #a0a0b0;
+
+  /* Dark mode shadows - subtle glow effect */
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.5), 0 1px 2px -1px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+  --shadow-card: 0 2px 8px -2px rgba(0, 0, 0, 0.5), 0 4px 16px -4px rgba(0, 0, 0, 0.4);
+  --shadow-hover: 0 8px 24px -4px rgba(0, 0, 0, 0.6), 0 4px 8px -2px rgba(0, 0, 0, 0.5);
+}
+
+@layer utilities {
+  .font-inter {
+    font-family: "Inter", sans-serif;
+  }
+  .font-msans {
+    font-family: "Merriweather Sans", sans-serif;
+    font-optical-sizing: auto;
+  }
+}
+
+/* Card component utility */
+@layer components {
+  .card {
+    @apply bg-surface-elevated rounded-xl shadow-card transition-shadow duration-200;
+  }
+  .card:hover {
+    @apply shadow-hover;
+  }
+}
+
+/* Typography styles for markdown/blog content */
+main h1 {
+  font-size: 2.5em;
+  font-weight: 900;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  text-align: center;
+  color: var(--color-on-surface);
+}
+
+main h2 {
+  font-size: 2em;
+  font-weight: 800;
+  margin-top: 32px;
+  margin-bottom: 6px;
+  color: var(--color-on-surface);
+}
+
+main h3,
+main h4,
+main h5,
+main h6 {
+  font-weight: 600;
+  margin-top: 28px;
+  margin-bottom: 4px;
+  color: var(--color-on-surface);
+}
+
+main h3 {
+  font-size: 1.7em;
+}
+
+main h4 {
+  font-size: 1.5em;
+}
+
+main h5 {
+  font-size: 1.35em;
+}
+
+main h6 {
+  font-size: 1.25em;
+}
+
+main p {
+  margin: 18px 0;
+  line-height: 1.6;
+}
+
+main p,
+main span,
+main li,
+main td,
+main th {
+  font-size: 1.1em;
+  color: var(--color-on-surface-muted);
+}
+
+.dark main p,
+.dark main span,
+.dark main li,
+.dark main td,
+.dark main th {
+  color: #ddd;
+}
+
+main a {
+  font-size: 1.1em;
+  text-decoration: underline;
+  color: var(--color-primary);
+}
+
+main a:hover {
+  color: var(--color-primary-light);
+}
+
+main ul {
+  list-style-type: disc;
+  margin-left: 24px;
+}
+
+main ol {
+  list-style-type: decimal;
+  margin-left: 24px;
+}
+
+main li {
+  margin-left: 36px;
+}
+
+main hr {
+  margin-bottom: 24px;
+  margin-top: 12px;
+  border-color: var(--color-on-surface-muted);
+  opacity: 0.3;
+}
+
+main table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 1em;
+  text-align: left;
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-secondary);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+main th,
+main td {
+  padding: 12px 15px;
+  border: 1px solid var(--color-on-surface-muted);
+  border-opacity: 0.2;
+}
+
+main th {
+  background-color: var(--color-surface-sunken);
+  color: var(--color-on-surface);
+  font-weight: bold;
+}
+
+main tr:nth-child(odd) {
+  background-color: var(--color-surface-sunken);
+}
+
+main tr:hover {
+  background-color: var(--color-primary);
+  background-opacity: 0.1;
+}
+
+main code {
+  font-size: 1em !important;
+  font-family: "Courier New", Courier, monospace;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: var(--color-surface-sunken);
+  color: var(--color-secondary);
+}
+
+main pre {
+  background-color: var(--color-surface-sunken);
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+main pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+main pre,
+main code {
+  tab-size: 4;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+}
+
+/* Code highlighting (hljs) */
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #282a36;
+  color: #f8f8f2;
+  border-radius: 8px;
+}
+
+.hljs-built_in {
+  color: #b57614;
+}
+
+.hljs-section,
+.hljs-link {
+  color: #458588;
+}
+
+.hljs-keyword {
+  color: #d65d0e;
+}
+
+.hljs,
+.hljs-tag,
+.hljs-name,
+.hljs-punctuation,
+.hljs-subst,
+.hljs-variable.language_ {
+  color: #f8f8f2 !important;
+}
+
+.hljs-title,
+.hljs-attr,
+.hljs-selector-tag,
+.hljs-meta-keyword,
+.hljs-operator,
+.hljs-name.function_ {
+  font-style: italic;
+  color: #689d6a;
+}
+
+.hljs-string,
+.hljs-meta,
+.hljs-type,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition,
+.hljs-variable,
+.hljs-template-tag,
+.hljs-template-variable {
+  color: #98871a;
+}
+
+.hljs-comment,
+.hljs-quote,
+.hljs-deletion {
+  color: #458588;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-title,
+.hljs-section,
+.hljs-doctag,
+.hljs-type,
+.hljs-strong {
+  font-weight: bold;
+}
+
+.hljs-literal,
+.hljs-number {
+  color: #8f3f71;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+/* Global link styles */
+a {
+  color: var(--color-primary);
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-primary-light);
+}
+
+/* Remove underline from navigation links */
+nav a,
+header a {
+  text-decoration: none;
+}
